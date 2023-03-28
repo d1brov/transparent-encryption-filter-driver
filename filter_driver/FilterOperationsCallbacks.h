@@ -1,0 +1,27 @@
+#pragma once
+
+FLT_PREOP_CALLBACK_STATUS PreopMjReadCallback(
+	PFLT_CALLBACK_DATA Data,
+	PCFLT_RELATED_OBJECTS FltObjects,
+	PVOID* CompletionContext
+);
+
+FLT_POSTOP_CALLBACK_STATUS PostopMjReadCallback(
+	PFLT_CALLBACK_DATA Data,
+	PCFLT_RELATED_OBJECTS FltObjects,
+	PVOID CompletionContext,
+	FLT_POST_OPERATION_FLAGS Flags
+);
+
+FLT_PREOP_CALLBACK_STATUS PreopMjWriteCallback(
+	PFLT_CALLBACK_DATA Data,
+	PCFLT_RELATED_OBJECTS FltObjects,
+	PVOID* CompletionContext
+);
+
+FLT_POSTOP_CALLBACK_STATUS PostopMjWriteCallback(
+	PFLT_CALLBACK_DATA Data,
+	PCFLT_RELATED_OBJECTS FltObjects,
+	PVOID CompletionContext,
+	FLT_POST_OPERATION_FLAGS Flags
+);

@@ -1,0 +1,61 @@
+[Version]
+Signature   = "$WINDOWS NT$"
+Class       = "ActivityMonitor"
+ClassGuid   = {b86dff51-a31e-4bac-b3cf-e8cfe75c9fc2}
+Provider    = %Provider%
+DriverVer   = 10/09/2001,1.0.0.0
+CatalogFile = EncryptingDiskFilter.cat
+PnpLockdown = 1
+
+[DestinationDirs]
+DefaultDestDir                   = 12
+EncryptingDiskFilter.DriverFiles = 12
+EncryptingDiskFilter.UserFiles   = 10,FltMgr
+
+[EncryptingDiskFilter.DriverFiles]
+EncryptingDiskFilter.sys
+
+[SourceDisksFiles]
+EncryptingDiskFilter.sys = 1,,
+
+[SourceDisksNames]
+1 = EncryptingDiskFilterInstall,,,
+
+[DefaultInstall.NTamd64]
+OptionDesc = %EncryptingDiskFilterServiceDesc%
+CopyFiles = EncryptingDiskFilter.DriverFiles
+
+[DefaultInstall.NTamd64.Services]
+AddService = %EncryptingDiskFilterServiceName%,,EncryptingDiskFilter.Service
+
+[EncryptingDiskFilter.Service]
+DisplayName    = %EncryptingDiskFilterServiceName%
+Description    = %EncryptingDiskFilterServiceDesc%
+ServiceBinary  = %12%\EncryptingDiskFilter.sys
+ServiceType    = 2
+StartType      = 3
+ErrorControl   = 1
+LoadOrderGroup = "FSFilter Activity Monitor"
+AddReg         = EncryptingDiskFilter.AddRegistry
+Dependencies   = FltMgr
+
+[EncryptingDiskFilter.AddRegistry]
+HKR,,"DebugFlags",0x00010001 ,0x0
+HKR,,"SupportedFeatures",0x00010001,0x3
+HKR,"Instances","DefaultInstance",0x00000000,%DefaultInstance%
+HKR,"Instances\"%Instance1.Name%,"Altitude",0x00000000,%Instance1.Altitude%
+HKR,"Instances\"%Instance1.Name%,"Flags",0x00010001,%Instance1.Flags%
+
+[Strings]
+Provider						= "d1brov"
+EncryptingDiskFilterServiceDesc = "EncryptingDiskFilter mini-filter driver"
+EncryptingDiskFilterServiceName = "EncryptingDiskFilter"
+RegInstancesSubkeyName			= "Instances"
+RegDefaultInstanceValueName		= "DefaultInstance"
+RegAltitudeValueName			= "Altitude"
+RegFlagsValueName				= "Flags"
+
+DefaultInstance    = "EncryptingDiskFilter Instance"
+Instance1.Name     = "EncryptingDiskFilter Instance"
+Instance1.Altitude = "360901"
+Instance1.Flags    = 0x0 ; Allow all attachments
